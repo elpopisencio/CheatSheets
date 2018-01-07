@@ -1,0 +1,7 @@
+* Clean cache
+$ npm cache clean
+
+** Notas
+-f to force
+para solucionar problemas de accesibilidad
+$ sudo chown -R $USER /usr

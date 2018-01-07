@@ -1,0 +1,28 @@
+* Notas
+Para que el usuario pueda acceder desde cualquier direccion poner 'username'@'%'
+
+* Commands
+
+**Show all databases: 
+show databases;
+
+** Create new database: 
+create database [database];
+
+** Select database: 
+use [database];
+
+* Users functions
+
+** Who am I?
+select user(), current_user();
+
+** List all users: 
+SELECT User,Host FROM mysql.user;
+
+** Create new user: 
+CREATE USER 'username'@'localhost' IDENTIFIED BY 'password';
+
+** Grant ALL access to user for * tables: 
+GRANT ALL ON database.* TO 'user'@'localhost';
+

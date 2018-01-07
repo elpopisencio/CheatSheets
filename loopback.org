@@ -1,0 +1,34 @@
+* Crear un proyecto con LoopBack
+
+$ lb
+
+* Crear un modelo
+
+$ lb model
+
+** Notas
+Escribir el nombre del modelo en CamelCase y las propiedades en minuscula.
+
+* Iniciar el servidor
+
+$ node .
+
+* Agregar un data source
+
+$ ld datasource
+
+** Notas
+El data source es agregado al archivo /server/datasource.json
+Para migrar crear el siguiente archivo en /server y ejecutarlo con node
+
+// migracion.js
+
+var server = require('./server');
+var ds = server.dataSources.db;
+var lbTables = ['User', 'AccessToken', 'ACL', 'RoleMapping', 'Role']; // Agregar los modelos
+ds.automigrate(lbTables, function(er) {
+  if (er) throw er;
+  console.log('Looback tables [' + lbTables + '] created in ', ds.adapter.name);
+  ds.disconnect();
+});
+

@@ -1,0 +1,17 @@
+* Notas:
+si no se pone :tag es :latest por default
+some-mariadb es el nombre del contenedor en todos los comandos
+my-secret-pw es la contraseña, se escribe sin ', ", etc.
+para poder conectarte al puerto agregar -p 3306:3306 al iniciar el contenedorº
+** Comandos que anduvieron:
+$ docker run -it --name sql -e MYSQL_ROOT_PASSWORD=root -d -p 3306:3306 mariadb
+$ docker run -it --link sql:mysql --rm mariadb sh -c 'exec mysql -h"$MYSQL_PORT_3306_TCP_ADDR" -P"$MYSQL_PORT_3306_TCP_PORT" -uroot -p"$MYSQL_ENV_MYSQL_ROOT_PASSWORD"'
+
+* Start a mariadb server instance
+docker run --name some-mariadb -e MYSQL_ROOT_PASSWORD=my-secret-pw -d mariadb:tag
+
+* Connect to MySQL from an application in another Docker container
+docker run --name some-app --link some-mariadb:mysql -d application-that-uses-mysql
+
+* Connect to MariaDB from the MySQL command line client
+docker run -it --link some-mariadb:mysql --rm mariadb sh -c 'exec mysql -h"$MYSQL_PORT_3306_TCP_ADDR" -P"$MYSQL_PORT_3306_TCP_PORT" -uroot -p"$MYSQL_ENV_MYSQL_ROOT_PASSWORD"'
